@@ -10,7 +10,6 @@ public class SingleConnection {
 	private static String user = "postgres";
 	private static Connection connection = null;
 	
-	
 	public SingleConnection() {
 		conectar();
 	}
@@ -18,7 +17,6 @@ public class SingleConnection {
 	static {
 		conectar();
 	}
-	
 	
 	private static void conectar() {
 		try {
@@ -29,8 +27,7 @@ public class SingleConnection {
 				System.out.println("Conectou com Sucesso!!");
 				
 				
-			}
-			
+			}	
 			
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -42,5 +39,4 @@ public class SingleConnection {
 		return connection;
 		
 	}
-
 }
