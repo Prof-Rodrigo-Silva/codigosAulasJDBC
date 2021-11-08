@@ -35,7 +35,6 @@ public class SingleConnection {
 		
 	}
 	
-	
 	public static Connection getConnetion() {
 		return connection;
 		

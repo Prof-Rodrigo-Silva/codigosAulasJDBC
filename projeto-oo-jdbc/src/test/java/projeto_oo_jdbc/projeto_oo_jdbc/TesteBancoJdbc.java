@@ -1,5 +1,7 @@
 package projeto_oo_jdbc.projeto_oo_jdbc;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import conexaojdbc.SingleConnection;
@@ -25,6 +27,36 @@ public class TesteBancoJdbc {
 		aluno.setEmail("outroteste@gmail.com");
 		
 		classeDao.salvar(aluno);
+	}
+	
+	@Test
+	public void initListar() {
+		ClasseDAO classeDao = new ClasseDAO();
+		try {
+			List<Aluno> list = classeDao.listar();
+			
+			for(Aluno aluno : list) {
+				System.out.println(aluno.getNome());
+				System.out.println("----------------");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@Test
+	public void initBuscar() {
+		ClasseDAO classeDao = new ClasseDAO();
+		try {
+			Aluno aluno = classeDao.buscar(2L);
+			
+			System.out.println(aluno.toString());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	
