@@ -117,7 +117,6 @@ public List<BeanAlunoFone> listarAlunoFone(Long idAluno) throws Exception {
 			beanAlunoFone.setTipo(resultado.getString("tipo"));
 
 			list.add(beanAlunoFone);
-
 		}
 
 		return list;

@@ -5,6 +5,7 @@ public class BeanAlunoFone {
 	private String email;
 	private String numero;
 	private String tipo;
+	
 	public String getNome() {
 		return nome;
 	}

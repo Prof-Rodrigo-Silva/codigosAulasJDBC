@@ -89,9 +89,9 @@ public class TesteBancoJdbc {
 	public void salvarTelefone() {
 		Telefone telefone = new Telefone();
 		ClasseDAO classeDAO = new ClasseDAO();
-		telefone.setNumero("999111111");
-		telefone.setTipo("celular");
-		telefone.setIdAluno(11L);
+		telefone.setNumero("99900334455");
+		telefone.setTipo("comercial");
+		telefone.setIdAluno(10L);
 		
 		classeDAO.salvarTelefone(telefone);
 	}
@@ -99,11 +99,11 @@ public class TesteBancoJdbc {
 	public void initListarAlunoTelefone() {
 		try {
 			ClasseDAO classeDao = new ClasseDAO();
-			List<BeanAlunoFone> list = classeDao.listarAlunoFone(10L);
+			List<BeanAlunoFone> list = classeDao.listarAlunoFone(11L);
 			
 			for(BeanAlunoFone beanAlunoFone : list) {
 				System.out.println(beanAlunoFone.toString());
-				System.out.println("----------------");
+				System.out.println("--------------------------------------");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -114,7 +114,7 @@ public class TesteBancoJdbc {
 	public void initDeletarCascata() {
 		try {
 			ClasseDAO classeDao = new ClasseDAO();
-			classeDao.deletarCascata(7L);
+			classeDao.deletarCascata(10L);
 					
 		} catch (Exception e) {
 			e.printStackTrace();
