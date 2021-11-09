@@ -7,6 +7,8 @@ import org.junit.Test;
 import conexaojdbc.SingleConnection;
 import dao.ClasseDAO;
 import model.Aluno;
+import model.BeanAlunoFone;
+import model.Telefone;
 
 public class TesteBancoJdbc {
 	
@@ -76,10 +78,47 @@ public class TesteBancoJdbc {
 	public void initDeletar() {
 		try {
 			ClasseDAO classeDao = new ClasseDAO();
-			classeDao.deletar(5L);
+			classeDao.deletar(7L);
 					
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
 	}
+	
+	@Test
+	public void salvarTelefone() {
+		Telefone telefone = new Telefone();
+		ClasseDAO classeDAO = new ClasseDAO();
+		telefone.setNumero("999111111");
+		telefone.setTipo("celular");
+		telefone.setIdAluno(11L);
+		
+		classeDAO.salvarTelefone(telefone);
+	}
+	@Test
+	public void initListarAlunoTelefone() {
+		try {
+			ClasseDAO classeDao = new ClasseDAO();
+			List<BeanAlunoFone> list = classeDao.listarAlunoFone(10L);
+			
+			for(BeanAlunoFone beanAlunoFone : list) {
+				System.out.println(beanAlunoFone.toString());
+				System.out.println("----------------");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+	}
+	
+	@Test
+	public void initDeletarCascata() {
+		try {
+			ClasseDAO classeDao = new ClasseDAO();
+			classeDao.deletarCascata(7L);
+					
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+	}
+	
 }
