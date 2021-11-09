@@ -22,43 +22,64 @@ public class TesteBancoJdbc {
 		
 		//classeDao.salvar(aluno);
 		
-		aluno.setId(2L);
-		aluno.setNome("Luciana");
-		aluno.setEmail("outroteste@gmail.com");
+		//aluno.setId(2L);
+		aluno.setNome("Yúri");
+		aluno.setEmail("yuri@gmail.com");
 		
 		classeDao.salvar(aluno);
 	}
 	
 	@Test
 	public void initListar() {
-		ClasseDAO classeDao = new ClasseDAO();
 		try {
+			ClasseDAO classeDao = new ClasseDAO();
 			List<Aluno> list = classeDao.listar();
 			
 			for(Aluno aluno : list) {
-				System.out.println(aluno.getNome());
+				System.out.println(aluno.toString());
 				System.out.println("----------------");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		
+		}	
 	}
 	
 	@Test
 	public void initBuscar() {
-		ClasseDAO classeDao = new ClasseDAO();
 		try {
-			Aluno aluno = classeDao.buscar(2L);
+			ClasseDAO classeDao = new ClasseDAO();
+			Aluno aluno = classeDao.buscar(4L);
 			
 			System.out.println(aluno.toString());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	@Test
+	public void initAtualizar () {
 		
+		try {
+			ClasseDAO classeDao = new ClasseDAO();
+			Aluno aluno = classeDao.buscar(5L);
+			
+			aluno.setNome("Rodrigo");
+			
+			classeDao.atualizar(aluno);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}	
 	}
 	
-	
-
+	@Test
+	public void initDeletar() {
+		try {
+			ClasseDAO classeDao = new ClasseDAO();
+			classeDao.deletar(5L);
+					
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+	}
 }
