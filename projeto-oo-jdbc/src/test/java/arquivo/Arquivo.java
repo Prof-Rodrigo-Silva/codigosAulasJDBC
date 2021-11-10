@@ -52,8 +52,7 @@ public class Arquivo {
 			
 			if(linha != null && !linha.isEmpty()) {
 				System.out.println(linha);
-			}
-			
+			}	
 		}
 	}
 }
