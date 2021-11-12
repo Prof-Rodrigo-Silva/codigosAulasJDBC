@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -48,6 +49,7 @@ public class Arquivo {
 		escrever_arquivo.close();//Fechar
 	
 	}
+
 	@Test
 	public void initLerArquivo() throws FileNotFoundException {
 		FileInputStream entrada = new FileInputStream(
@@ -130,4 +132,48 @@ public class Arquivo {
 		registro.close();
 	
 	}
+	
+	@Test
+	public void initLerArquivoPOI() throws Exception{
+		
+		FileInputStream entrada = new FileInputStream(
+				new File("C:\\Users\\fermat\\git\\repository3\\projeto-oo-jdbc\\src\\test\\java\\arquivo\\arquivo_planilha.xls"));
+		
+		
+		HSSFWorkbook hssfWorkbook = new HSSFWorkbook(entrada);//Prepara a entrada do arquivo excel para ler
+		HSSFSheet planilha = hssfWorkbook.getSheetAt(0);//Pega a 1º planilha
+		
+		Iterator<Row> linhaIterator = planilha.iterator();
+		
+		List<BeanAlunoFone> list = new ArrayList<BeanAlunoFone>();
+		
+		while (linhaIterator.hasNext()) {//Enquanto tiver linha no arquivo excel
+			Row linha = linhaIterator.next();//Dados da pessoa na linha
+			Iterator<Cell> celula = linha.iterator();
+			
+			BeanAlunoFone beanAlunoFone = new BeanAlunoFone();
+			
+			while(celula.hasNext()) {//Enquanto tiver celulas
+				Cell cell = celula.next();
+				switch (cell.getColumnIndex()) {
+				case 0: beanAlunoFone.setNome(cell.getStringCellValue());
+					break;
+				case 1: beanAlunoFone.setEmail(cell.getStringCellValue());
+					break;
+				case 2: beanAlunoFone.setNumero(cell.getStringCellValue());
+					break;
+				case 3: beanAlunoFone.setTipo(cell.getStringCellValue());
+					break;
+
+				}
+			}//Fim das celulas da linha
+			list.add(beanAlunoFone);
+		}
+		entrada.close();//Fecha o arquivo
+		
+		for(BeanAlunoFone b : list) {
+			System.out.println(b.toString());
+			
+		}
+	}	
 }
