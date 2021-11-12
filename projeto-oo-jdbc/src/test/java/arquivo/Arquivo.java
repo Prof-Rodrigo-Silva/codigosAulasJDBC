@@ -3,12 +3,17 @@ package arquivo;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.junit.Test;
 
 import dao.ClasseDAO;
@@ -83,5 +88,46 @@ public class Arquivo {
 		for(BeanAlunoFone b : list) {
 			System.out.println(b.toString());
 		}
+	}
+	
+	@Test
+	public void initGravaArquivoPOI() throws Throwable {
+		File arquivo = new File("C:\\Users\\fermat\\git\\repository3\\projeto-oo-jdbc\\src\\test\\java\\arquivo\\arquivo_planilha.xls");
+
+		if(!arquivo.exists()) {
+			arquivo.createNewFile();
+		}
+		
+		ClasseDAO classeDao = new ClasseDAO();
+		List<BeanAlunoFone> list = classeDao.listarAlunoFone(11L);
+		
+		HSSFWorkbook hssfWorkbook = new HSSFWorkbook();//Vai ser usado para escrever a planilha
+		HSSFSheet linhasInformacoes = hssfWorkbook.createSheet("Planilha de Informações");//Criar planilha
+		//Controle linha
+		int numeroLinha = 0;
+		for(BeanAlunoFone b : list) {
+			Row linha = linhasInformacoes.createRow(numeroLinha++);//Criando a linha
+			
+			int celula = 0;
+			
+			Cell celNome = linha.createCell(celula++);
+			celNome.setCellValue(b.getNome());
+			
+			Cell celEmail = linha.createCell(celula++);
+			celEmail.setCellValue(b.getEmail());
+			
+			Cell celNumero = linha.createCell(celula++);
+			celNumero.setCellValue(b.getNumero());
+			
+			Cell celTipo = linha.createCell(celula++);
+			celTipo.setCellValue(b.getTipo());			
+			
+		}//Termina de montar a planilha
+		
+		FileOutputStream registro = new FileOutputStream(arquivo);
+		hssfWorkbook.write(registro);
+		registro.flush();
+		registro.close();
+	
 	}
 }
