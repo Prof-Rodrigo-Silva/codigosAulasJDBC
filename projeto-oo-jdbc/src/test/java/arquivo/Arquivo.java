@@ -206,5 +206,34 @@ public class Arquivo {
 		saida.close();
 		
 	}
+	
+	@Test
+	public void initEditarArquivoPOI2() throws Exception {
+		
+		File arquivo = new File("C:\\Users\\fermat\\git\\repository3\\projeto-oo-jdbc\\src\\test\\java\\arquivo\\arquivo_planilha.xls");
+		
+		FileInputStream entrada = new FileInputStream(arquivo);
+		
+		HSSFWorkbook hssfWorkbook = new HSSFWorkbook(entrada);//Prepara a entrada do arquivo excel para ler
+		HSSFSheet planilha = hssfWorkbook.getSheetAt(0);//Pega a 1º planilha
+		
+		Iterator<Row> linhaIterator = planilha.iterator();
+		
+		while (linhaIterator.hasNext()) {//Enquanto tiver linha no arquivo excel
+			Row linha = linhaIterator.next();//Dados da pessoa na linha
+						
+			String valorCelula = linha.getCell(0).getStringCellValue();
+			valorCelula = "Novo Nome";
+			linha.getCell(0).setCellValue(valorCelula);
+			}//Fim das celulas da linha
+			
+		entrada.close();//Fecha o arquivo
+		
+		FileOutputStream saida = new FileOutputStream(arquivo);
+		hssfWorkbook.write(saida);
+		saida.flush();
+		saida.close();
+		
+	}
 
 }
