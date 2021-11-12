@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -17,8 +19,15 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.junit.Test;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
 import dao.ClasseDAO;
 import model.BeanAlunoFone;
+import model.Pessoa;
 
 public class Arquivo {
 	
@@ -233,7 +242,59 @@ public class Arquivo {
 		hssfWorkbook.write(saida);
 		saida.flush();
 		saida.close();
-		
 	}
+	
+	@Test
+	public void initGravarJSON() throws IOException {
+		
+		Pessoa p = new Pessoa();
+		p.setNome("Rodrigo");
+		p.setCpf("99999999999");
+		p.setLogin("admin");
+		p.setSenha("minhaSenha");
+		
+		Pessoa p2 = new Pessoa();
+		p2.setNome("Graziela");
+		p2.setCpf("88888888888");
+		p2.setLogin("meuLogin");
+		p2.setSenha("admin");
+		
+		List<Pessoa> list = new ArrayList<Pessoa>();
+		list.add(p);
+		list.add(p2);
+		
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String jsonUser = gson.toJson(list);
+		
+		System.out.println(jsonUser);
+		
+		FileWriter fileWriter = new FileWriter("C:\\Users\\fermat\\git\\repository3\\projeto-oo-jdbc\\src\\test\\java\\arquivo\\arquivo_json.json");
+		
+		//Se ocorrer erro de encond
+		//OutputStreamWriter gravar = new OutputStreamWriter(new FileOutputStream(arquivo), "UTF-8");
+		
+		fileWriter.write(jsonUser);
+		fileWriter.flush();
+		fileWriter.close();
+	}
+	
+	@Test
+	public void initLerJSON() throws IOException {
+		//----------------LER ARQUIVO-----------------
+		FileReader fileReader = new FileReader("C:\\Users\\fermat\\git\\repository3\\projeto-oo-jdbc\\src\\test\\java\\arquivo\\arquivo_json.json");
+				
+		JsonArray jsonArray = (JsonArray) JsonParser.parseReader(fileReader);
+				
+		List<Pessoa> listPessoas = new ArrayList<Pessoa>();
+				
+		for(JsonElement jsonElement : jsonArray) {
+					
+			Pessoa pessoa = new Gson().fromJson(jsonElement, Pessoa.class);
+					
+			listPessoas.add(pessoa);	
+		}
+		System.out.println(listPessoas);
+	}
+	
 
 }
