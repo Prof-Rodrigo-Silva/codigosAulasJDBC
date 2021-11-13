@@ -81,6 +81,7 @@ public class Arquivo {
 		
 		//Ler arquivo e add em uma lista de objetos
 		List<BeanAlunoFone> list = new ArrayList<BeanAlunoFone>();
+		
 		while (lerArquivo.hasNext()) {
 			String linha = lerArquivo.nextLine();
 			
@@ -165,14 +166,14 @@ public class Arquivo {
 			while(celula.hasNext()) {//Enquanto tiver celulas
 				Cell cell = celula.next();
 				switch (cell.getColumnIndex()) {
-				case 0: beanAlunoFone.setNome(cell.getStringCellValue());
-					break;
-				case 1: beanAlunoFone.setEmail(cell.getStringCellValue());
-					break;
-				case 2: beanAlunoFone.setNumero(cell.getStringCellValue());
-					break;
-				case 3: beanAlunoFone.setTipo(cell.getStringCellValue());
-					break;
+					case 0: beanAlunoFone.setNome(cell.getStringCellValue());
+						break;
+					case 1: beanAlunoFone.setEmail(cell.getStringCellValue());
+						break;
+					case 2: beanAlunoFone.setNumero(cell.getStringCellValue());
+						break;
+					case 3: beanAlunoFone.setTipo(cell.getStringCellValue());
+						break;
 
 				}
 			}//Fim das celulas da linha
