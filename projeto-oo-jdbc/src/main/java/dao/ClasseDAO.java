@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -196,6 +197,28 @@ public List<BeanAlunoFone> listarAlunoFone(Long idAluno) throws Exception {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public String ultimoRegistro() throws SQLException {
+		
+		//Retorna toda  a linha do último id
+		//String sql = "SELECT * FROM alunojdbc WHERE id = (SELECT MAX(id) FROM alunojdbc)";
+		String sql = "SELECT * FROM alunojdbc ORDER BY id DESC LIMIT 1";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(sql); 
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        //como vai retornar apenas um registro, nao precisa do while
+        resultSet.next(); 
+        String ultimoRegistro = resultSet.getString("id");
+        //Se precisar retornar um int ou outra forma, converter(Mudar método e retorno)
+        //int id = Integer.parseInt(ultimoRegistro);
+        
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+		
+		return ultimoRegistro;
 	}
 
 }

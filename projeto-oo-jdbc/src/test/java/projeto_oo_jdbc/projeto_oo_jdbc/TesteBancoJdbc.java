@@ -1,5 +1,6 @@
 package projeto_oo_jdbc.projeto_oo_jdbc;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.junit.Test;
@@ -119,6 +120,12 @@ public class TesteBancoJdbc {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
+	}
+	@Test
+	public void initUltimoRegistro() throws SQLException {
+		ClasseDAO classeDAO = new ClasseDAO();
+		String id = classeDAO.ultimoRegistro();
+		System.out.println(id);
 	}
 	
 }
